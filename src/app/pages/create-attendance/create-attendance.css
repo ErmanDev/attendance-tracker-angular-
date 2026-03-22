@@ -1,0 +1,94 @@
+@reference '../../../styles.css';
+
+.attendance-page {
+  @apply mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-8;
+}
+
+.attendance-header {
+  @apply mb-8;
+}
+
+.attendance-header-main {
+  @apply min-w-0;
+}
+
+.attendance-back {
+  @apply mb-2 inline-block text-sm font-medium no-underline;
+  color: var(--mat-sys-primary);
+}
+
+.attendance-back:hover {
+  text-decoration: underline;
+}
+
+.attendance-title {
+  @apply text-2xl font-semibold sm:text-3xl;
+  color: var(--mat-sys-on-surface);
+}
+
+.attendance-meta {
+  @apply mt-1 text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.attendance-hint {
+  @apply mb-4 text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.attendance-error {
+  @apply mb-4 rounded-md px-3 py-2 text-sm sm:text-base;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.attendance-section {
+  @apply mb-10;
+}
+
+.attendance-section-title {
+  @apply mb-3 text-lg font-semibold;
+  color: var(--mat-sys-on-surface);
+}
+
+.attendance-instructions {
+  @apply mb-4 max-w-3xl text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.attendance-label-field {
+  @apply mb-4 w-full max-w-md;
+}
+
+.attendance-actions {
+  @apply mb-4 flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center;
+}
+
+.attendance-table-container {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.attendance-table {
+  width: 100%;
+  background-color: transparent;
+}
+
+.attendance-table .mat-mdc-header-cell {
+  font-weight: 600;
+  color: var(--mat-sys-on-surface);
+}
+
+.attendance-table .mat-mdc-cell {
+  color: var(--mat-sys-on-surface);
+}
+
+.attendance-table .mat-mdc-row:hover {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.attendance-history-actions {
+  @apply flex items-center gap-0;
+}

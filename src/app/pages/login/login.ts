@@ -1,23 +1,27 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { AuthService } from '../../core/auth.service';
 import { messageFromHttpError } from '../../core/http-error.util';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Alert } from '../../shared/alert/alert';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, Alert],
+  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, Alert],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly form = this.fb.nonNullable.group({
@@ -28,6 +32,12 @@ export class Login {
   readonly submitError = signal<string | null>(null);
   readonly submitting = signal(false);
   readonly loginSuccess = signal(false);
+
+  ngOnInit(): void {
+    if (this.auth.getToken()) {
+      void this.router.navigateByUrl('/home');
+    }
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -44,7 +54,12 @@ export class Login {
         timer(2200)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
-            void this.router.navigateByUrl('/home');
+            const raw = this.route.snapshot.queryParamMap.get('returnUrl');
+            const target =
+              raw && raw.startsWith('/') && !raw.startsWith('//') && !raw.includes('://')
+                ? raw
+                : '/home';
+            void this.router.navigateByUrl(target);
           });
       },
       error: (err: unknown) => {

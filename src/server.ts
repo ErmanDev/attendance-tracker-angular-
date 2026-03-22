@@ -7,6 +7,7 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 import { registerAuthRoutes } from './server/auth/routes';
+import { registerClassroomRoutes } from './server/classrooms/routes';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -15,6 +16,7 @@ const angularApp = new AngularNodeAppEngine();
 
 app.use(express.json());
 registerAuthRoutes(app);
+registerClassroomRoutes(app);
 
 /**
  * Serve static files from /browser

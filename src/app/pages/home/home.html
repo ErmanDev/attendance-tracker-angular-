@@ -1,2 +1,57 @@
-<h1>Welcome to My First Angular Page!</h1>
-<p>This is the home page of my app.</p>
+<div class="home-page">
+  <header class="home-header">
+    <div class="home-header-text">
+      <h1 class="home-title">Attendance Tracker</h1>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      class="home-create-btn"
+      (click)="openCreateClassroom()"
+      [disabled]="!isSignedIn()"
+      [title]="!isSignedIn() ? 'Sign in to create a classroom' : ''"
+    >
+      Create a classroom
+    </button>
+  </header>
+
+  @if (!isSignedIn()) {
+  <p class="home-hint">Sign in to create and view your classrooms.</p>
+  } @else if (loadError()) {
+  <p class="home-error" role="alert">{{ loadError() }}</p>
+  } @else if (classrooms().length === 0) {
+  <p class="home-empty">No classrooms yet. Use “Create a classroom” to add one.</p>
+  } @else {
+  <ul class="home-classroom-list">
+    @for (c of classrooms(); track c.id) {
+    <li class="home-classroom-list-item">
+      <a [routerLink]="['/classroom', c.id]" class="home-classroom-card">
+        <div class="home-classroom-card-main">
+          <div class="home-classroom-subject">{{ c.subjectName }}</div>
+          <div class="home-classroom-meta">
+            <span>{{ c.course }}</span>
+            <span class="home-classroom-sep">·</span>
+            <span>Year {{ c.year }}</span>
+            <span class="home-classroom-sep">·</span>
+            <span>Room {{ c.room }}</span>
+          </div>
+        </div>
+        <mat-icon class="home-classroom-person-icon" aria-hidden="true">person</mat-icon>
+      </a>
+      <button
+        mat-icon-button
+        type="button"
+        color="warn"
+        class="home-classroom-delete"
+        matTooltip="Delete classroom"
+        aria-label="Delete classroom"
+        (click)="confirmDeleteClassroom(c)"
+      >
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </li>
+    }
+  </ul>
+  }
+</div>

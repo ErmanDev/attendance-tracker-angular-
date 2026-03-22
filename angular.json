@@ -33,14 +33,25 @@
             "ssr": {
               "entry": "src/server.ts"
             },
-            "externalDependencies": ["better-sqlite3"]
+            "externalDependencies": ["better-sqlite3"],
+            "allowedCommonJsDependencies": [
+              "jspdf",
+              "jspdf-autotable",
+              "canvg",
+              "core-js",
+              "dompurify",
+              "fflate",
+              "html2canvas",
+              "raf",
+              "rgbcolor"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "600kB",
+                  "maximumWarning": "800kB",
                   "maximumError": "1MB"
                 },
                 {

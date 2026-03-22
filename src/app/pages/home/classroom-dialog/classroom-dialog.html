@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Create a classroom</h2>
+
+<mat-dialog-content class="classroom-dialog-body">
+  @if (submitError()) {
+    <p class="classroom-dialog-error" role="alert">{{ submitError() }}</p>
+  }
+  <form [formGroup]="form" id="classroom-form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline" class="classroom-dialog-field">
+      <mat-label>Subject name</mat-label>
+      <input matInput formControlName="subjectName" id="cd-subject" autocomplete="off" />
+      @if (form.controls.subjectName.touched && form.controls.subjectName.hasError('required')) {
+        <mat-error>Subject is required.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="classroom-dialog-field">
+      <mat-label>Course</mat-label>
+      <input matInput formControlName="course" id="cd-course" autocomplete="off" />
+      @if (form.controls.course.touched && form.controls.course.hasError('required')) {
+        <mat-error>Course is required.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="classroom-dialog-field">
+      <mat-label>Year</mat-label>
+      <input matInput formControlName="year" id="cd-year" autocomplete="off" />
+      @if (form.controls.year.touched && form.controls.year.hasError('required')) {
+        <mat-error>Year is required.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="classroom-dialog-field">
+      <mat-label>Room</mat-label>
+      <input matInput formControlName="room" id="cd-room" autocomplete="off" />
+      @if (form.controls.room.touched && form.controls.room.hasError('required')) {
+        <mat-error>Room is required.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    form="classroom-form"
+    [disabled]="submitting()"
+  >
+    {{ submitting() ? 'Creating…' : 'Create' }}
+  </button>
+</mat-dialog-actions>

@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:attendance-tracker": "node dist/attendance-tracker/server/server.mjs",
+    "server": "node dist/attendance-tracker/server/server.mjs",
     "serve:ssr:dev": "ng build --configuration development && node dist/attendance-tracker/server/server.mjs"
   },
   "private": true,
@@ -27,6 +27,8 @@
     "better-sqlite3": "^12.8.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.3",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

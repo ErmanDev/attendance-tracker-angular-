@@ -1,0 +1,87 @@
+@reference '../../../styles.css';
+
+.home-page {
+  @apply mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-10;
+}
+
+.home-header {
+  @apply mb-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between;
+}
+
+.home-header-text {
+  @apply min-w-0 flex-1;
+}
+
+.home-title {
+  @apply text-2xl font-semibold sm:text-3xl;
+  color: var(--mat-sys-on-surface);
+}
+
+.home-subtitle {
+  @apply mt-1 text-sm sm:text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.home-create-btn {
+  @apply shrink-0 self-start sm:self-auto;
+}
+
+.home-hint,
+.home-empty {
+  @apply text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.home-error {
+  @apply rounded-md px-3 py-2 text-sm sm:text-base;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.home-classroom-list {
+  @apply flex list-none flex-col gap-3 p-0;
+}
+
+.home-classroom-list-item {
+  @apply flex items-stretch gap-1 sm:gap-2;
+}
+
+.home-classroom-card {
+  border-color: var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  @apply flex min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 no-underline transition-colors;
+}
+
+.home-classroom-delete {
+  @apply shrink-0 self-center;
+}
+
+.home-classroom-card:hover {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.home-classroom-card-main {
+  @apply min-w-0 flex-1;
+}
+
+.home-classroom-subject {
+  @apply min-w-0 text-lg font-semibold;
+}
+
+.home-classroom-person-icon {
+  @apply shrink-0;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--mat-sys-primary);
+}
+
+.home-classroom-meta {
+  @apply mt-1 text-sm sm:text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.home-classroom-sep {
+  @apply mx-1;
+}

@@ -16,13 +16,13 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render tab nav links', async () => {
+  it('should render guest tab nav links when logged out', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     const links = compiled.querySelectorAll('nav a');
-    expect(links.length).toBe(4);
+    expect(links.length).toBe(2);
     const labels = [...links].map((a) => a.textContent?.trim());
-    expect(labels).toEqual(['Home', 'About', 'Login', 'Register']);
+    expect(labels).toEqual(['Login', 'Register']);
   });
 });

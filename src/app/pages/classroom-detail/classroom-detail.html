@@ -1,0 +1,166 @@
+<div class="classroom-detail-page">
+  <header class="classroom-detail-header">
+    <div class="classroom-detail-header-main">
+      <a routerLink="/home" class="classroom-detail-back" aria-label="Back to home">
+        <img
+          class="classroom-detail-back-icon"
+          src="/icons/left-arrow.svg"
+          alt=""
+          width="28"
+          height="28"
+        />
+      </a>
+      @if (classroom(); as c) {
+      <h1 class="classroom-detail-title">{{ c.subjectName }}</h1>
+      <p class="classroom-detail-meta">{{ c.course }} · Year {{ c.year }} · Room {{ c.room }}</p>
+      } @else if (routeClassroomId() && !notFound()) {
+      <h1 class="classroom-detail-title">Classroom</h1>
+      <p class="classroom-detail-meta">Classroom #{{ routeClassroomId() }}</p>
+      }
+    </div>
+  </header>
+
+  @if (notFound()) {
+  <p class="classroom-detail-msg">Classroom not found or you do not have access.</p>
+  <button mat-button type="button" (click)="back()">Return home</button>
+  } @else { @if (classroomLoadError()) {
+  <div class="classroom-detail-error-block" role="alert">
+    <p class="classroom-detail-error">{{ classroomLoadError() }}</p>
+    <button mat-stroked-button type="button" color="primary" (click)="retryLoad()">Retry</button>
+  </div>
+  } @if (classroomLoading()) {
+  <p class="classroom-detail-loading">Loading classroom…</p>
+  } @if (classroom() || (classroomLoadError() && routeClassroomId())) {
+  <section class="classroom-detail-students" aria-labelledby="students-heading">
+    <h2 id="students-heading" class="classroom-detail-students-title">Students</h2>
+
+    @if (studentsLoadError()) {
+    <p class="classroom-detail-error" role="alert">{{ studentsLoadError() }}</p>
+    } @if (classroom() && !studentsLoadError()) {
+    <div
+      class="classroom-detail-toolbar"
+      [class.classroom-detail-toolbar--solo]="students().length === 0"
+    >
+      @if (students().length > 0) {
+      <mat-form-field
+        appearance="outline"
+        class="classroom-detail-search"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>Search students</mat-label>
+        <mat-icon matPrefix class="classroom-detail-search-icon" aria-hidden="true"
+          >search</mat-icon
+        >
+        <input
+          matInput
+          type="search"
+          [value]="studentSearch()"
+          (input)="onStudentSearchInput($event)"
+          autocomplete="off"
+          aria-label="Search students by ID, name, email, or gender"
+        />
+        @if (studentSearch()) {
+        <button
+          matSuffix
+          mat-icon-button
+          type="button"
+          aria-label="Clear search"
+          (click)="studentSearch.set('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+      </mat-form-field>
+      } @if (canAddStudent()) {
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        class="classroom-detail-add-student"
+        (click)="openCreateStudent()"
+      >
+        Create a student
+      </button>
+      }
+    </div>
+    } @if (classroom() && !studentsLoadError() && students().length === 0) {
+    <p class="classroom-detail-empty">No students yet. Use “Create a student” to add one.</p>
+    } @if (classroom() && !studentsLoadError() && students().length > 0) { @if
+    (filteredStudents().length === 0) {
+    <p class="classroom-detail-empty">No students match your search.</p>
+    } @else {
+    <div class="classroom-detail-table-container">
+      <table mat-table [dataSource]="filteredStudents()" class="classroom-detail-table">
+        <ng-container matColumnDef="studentId">
+          <th mat-header-cell *matHeaderCellDef scope="col" class="classroom-detail-col-student-id">
+            Student ID
+          </th>
+          <td mat-cell *matCellDef="let s" class="classroom-detail-col-student-id">
+            {{ s.studentId || '—' }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef scope="col" class="classroom-detail-col-last-name">
+            Last name
+          </th>
+          <td mat-cell *matCellDef="let s" class="classroom-detail-col-last-name">{{ s.lastName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef scope="col" class="classroom-detail-col-first-name">
+            First name
+          </th>
+          <td mat-cell *matCellDef="let s" class="classroom-detail-col-first-name">{{ s.firstName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="middleName">
+          <th mat-header-cell *matHeaderCellDef scope="col">Middle name</th>
+          <td mat-cell *matCellDef="let s">{{ s.middleName?.trim() || '—' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef scope="col">Email</th>
+          <td mat-cell *matCellDef="let s">{{ s.email || '—' }}</td>
+        </ng-container>
+        @if (canAddStudent()) {
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef scope="col" class="classroom-detail-actions-header">
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let s" class="classroom-detail-actions-cell">
+            <button
+              mat-icon-button
+              type="button"
+              matTooltip="Edit student"
+              (click)="openEditStudent(s)"
+              aria-label="Edit student"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              type="button"
+              matTooltip="Delete student"
+              (click)="confirmDeleteStudent(s)"
+              aria-label="Delete student"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        }
+
+        <tr mat-header-row *matHeaderRowDef="studentTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: studentTableColumns"></tr>
+      </table>
+    </div>
+    } }
+  </section>
+  <button
+    mat-stroked-button
+    color="primary"
+    type="button"
+    class="classroom-detail-create-attendance"
+    (click)="goCreateAttendance()"
+  >
+    Create attendance
+  </button>
+  } }
+</div>

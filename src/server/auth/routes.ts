@@ -2,14 +2,11 @@ import type { Express, Request, Response } from 'express';
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { jwtSecret } from './jwt';
 import { getDb } from '../db/init';
 import { createUser, findUserByEmail, type UserRow } from '../db/users';
 
 const SALT_ROUNDS = 10;
-
-function jwtSecret(): string {
-  return process.env['JWT_SECRET'] ?? 'dev-insecure-change-me';
-}
 
 function toPublicUser(row: UserRow) {
   return { id: row.id, email: row.email, name: row.name };

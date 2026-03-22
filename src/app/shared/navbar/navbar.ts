@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { MatTabLink, MatTabNav, MatTabNavPanel } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../core/auth.service';
+import { LiveClock } from '../live-clock/live-clock';
 
 export interface NavTab {
   label: string;
@@ -12,25 +14,36 @@ export interface NavTab {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, MatTabNav, MatTabNavPanel, MatTabLink],
+  imports: [RouterOutlet, RouterLink, MatButtonModule, LiveClock],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
   private readonly router = inject(Router);
+  readonly auth = inject(AuthService);
 
-  readonly navTabs: NavTab[] = [
-    { label: 'Home', path: '/home', activePaths: ['/', '/home'] },
-    { label: 'About', path: '/about' },
-    { label: 'Login', path: '/login' },
-    { label: 'Register', path: '/register' },
+  /** Shown before sign-in: only auth entry points. */
+  readonly guestTabs: NavTab[] = [];
+
+  /** Shown after sign-in. */
+  readonly memberTabs: NavTab[] = [
+    { label: 'Home', path: '/home', activePaths: ['/home'] },
+    { label: 'About', path: '/about', activePaths: ['/about'] },
   ];
 
   isTabActive(tab: NavTab): boolean {
     const path = this.router.url.split('?')[0];
+    if (tab.path === '/home' && path.startsWith('/classroom/')) {
+      return true;
+    }
     if (tab.activePaths?.length) {
       return tab.activePaths.includes(path);
     }
     return path === tab.path || path.startsWith(`${tab.path}/`);
+  }
+
+  logout(): void {
+    this.auth.logout();
+    void this.router.navigateByUrl('/login');
   }
 }

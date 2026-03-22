@@ -1,0 +1,25 @@
+@reference '../../../../styles.css';
+
+.student-dialog-body {
+  @apply flex min-w-[min(100vw-2rem,28rem)] flex-col gap-2 pt-3;
+}
+
+.student-dialog-name-row {
+  @apply flex flex-col gap-0 sm:grid sm:grid-cols-3 sm:gap-3 sm:items-start;
+}
+
+.student-dialog-field {
+  width: 100%;
+  overflow: visible;
+}
+
+/* MDC text field wrapper can clip the floating label notch */
+:host ::ng-deep .student-dialog-field .mat-mdc-text-field-wrapper {
+  overflow: visible;
+}
+
+.student-dialog-error {
+  @apply mb-2 rounded-md px-3 py-2 text-sm;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}

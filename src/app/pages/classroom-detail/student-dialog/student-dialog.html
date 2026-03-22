@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit student' : 'Add a student' }}</h2>
+
+<mat-dialog-content class="student-dialog-body">
+  @if (submitError()) {
+    <p class="student-dialog-error" role="alert">{{ submitError() }}</p>
+  }
+  <form [formGroup]="form" id="student-form" (ngSubmit)="submit()">
+    <div class="student-dialog-name-row">
+      <mat-form-field appearance="outline" class="student-dialog-field">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstName" id="sd-first" autocomplete="given-name" />
+        @if (form.controls.firstName.touched && form.controls.firstName.hasError('required')) {
+          <mat-error>First name is required.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="student-dialog-field">
+        <mat-label>Middle name (optional)</mat-label>
+        <input matInput formControlName="middleName" id="sd-middle" autocomplete="additional-name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="student-dialog-field">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName" id="sd-last" autocomplete="family-name" />
+        @if (form.controls.lastName.touched && form.controls.lastName.hasError('required')) {
+          <mat-error>Last name is required.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="student-dialog-field">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender" id="sd-gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+      @if (form.controls.gender.touched && form.controls.gender.hasError('required')) {
+        <mat-error>Choose male or female.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="student-dialog-field">
+      <mat-label>Email (optional)</mat-label>
+      <input matInput type="email" formControlName="email" id="sd-email" autocomplete="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="student-dialog-field">
+      <mat-label>Student ID (optional)</mat-label>
+      <input matInput formControlName="studentId" id="sd-student-id" autocomplete="off" />
+      <mat-hint>Must be unique in this classroom (not case-sensitive).</mat-hint>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    form="student-form"
+    [disabled]="submitting()"
+  >
+    {{ submitting() ? (isEditMode ? 'Saving…' : 'Adding…') : isEditMode ? 'Save changes' : 'Add student' }}
+  </button>
+</mat-dialog-actions>

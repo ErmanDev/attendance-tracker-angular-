@@ -36,3 +36,15 @@ body {
   margin: 0;
   height: 100%;
 }
+
+// Outline mat-form-field labels float above the field; dialog content defaults to
+// overflow: auto and clips the floating label (add/edit student dialog).
+.student-dialog-panel.mat-mdc-dialog-panel .mat-mdc-dialog-content,
+.student-dialog-panel .mat-mdc-dialog-content {
+  overflow: visible !important;
+}
+
+.student-dialog-panel .mat-mdc-dialog-container,
+.student-dialog-panel .mdc-dialog__surface {
+  overflow: visible;
+}

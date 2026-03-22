@@ -1,0 +1,150 @@
+@reference '../../../styles.css';
+
+.classroom-detail-page {
+  @apply mx-auto w-full max-w-4xl px-4 py-6 sm:px-6 sm:py-8;
+}
+
+.classroom-detail-header {
+  @apply mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between;
+}
+
+.classroom-detail-header-main {
+  @apply min-w-0 flex-1;
+}
+
+.classroom-detail-back {
+  @apply mb-2 inline-flex size-10 items-center justify-center rounded-full no-underline transition-colors;
+  color: var(--mat-sys-primary);
+}
+
+.classroom-detail-back:hover {
+  background-color: var(--mat-sys-surface-container-highest);
+}
+
+.classroom-detail-back:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+.classroom-detail-back-icon {
+  @apply block shrink-0;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.classroom-detail-title {
+  @apply text-2xl font-semibold sm:text-3xl;
+  color: var(--mat-sys-on-surface);
+}
+
+.classroom-detail-meta {
+  @apply mt-1 text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.classroom-detail-add-student {
+  @apply shrink-0 self-start sm:self-auto;
+  min-height: 40px;
+}
+
+.classroom-detail-loading {
+  @apply text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.classroom-detail-msg,
+.classroom-detail-empty {
+  @apply text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.classroom-detail-error {
+  @apply rounded-md px-3 py-2 text-sm sm:text-base;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.classroom-detail-error-block {
+  @apply mb-4 flex flex-col gap-3 rounded-md px-3 py-3 sm:flex-row sm:items-center sm:justify-between;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.classroom-detail-error-block .classroom-detail-error {
+  @apply m-0 bg-transparent p-0;
+  color: inherit;
+}
+
+.classroom-detail-students-title {
+  @apply mb-3 text-lg font-semibold;
+  color: var(--mat-sys-on-surface);
+}
+
+.classroom-detail-toolbar {
+  @apply mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+}
+
+.classroom-detail-toolbar--solo {
+  @apply sm:justify-end;
+}
+
+.classroom-detail-search {
+  @apply mb-0 w-full min-w-0 flex-1 max-w-xl;
+}
+
+.classroom-detail-create-attendance {
+  @apply w-full shrink-0 sm:w-auto mt-4;
+}
+
+.classroom-detail-search-icon {
+  @apply mr-1;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.classroom-detail-table-container {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.classroom-detail-table {
+  width: 100%;
+  background-color: transparent;
+}
+
+.classroom-detail-table .mat-mdc-header-cell {
+  font-weight: 600;
+  color: var(--mat-sys-on-surface);
+  white-space: nowrap;
+}
+
+.classroom-detail-table .mat-mdc-cell {
+  color: var(--mat-sys-on-surface);
+}
+
+.classroom-detail-table .mat-mdc-row:hover {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.classroom-detail-col-student-id,
+.classroom-detail-col-last-name,
+.classroom-detail-col-first-name {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.classroom-detail-actions-header,
+.classroom-detail-actions-cell {
+  width: 1%;
+  white-space: nowrap;
+  text-align: end;
+}
+
+.classroom-detail-actions-cell {
+  padding-inline: 0;
+}
+
+.classroom-detail-actions-cell .mat-mdc-icon-button {
+  margin-inline: -0.25rem;
+}

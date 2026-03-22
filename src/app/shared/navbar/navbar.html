@@ -1,10 +1,39 @@
 <header class="app-header">
-  <nav mat-tab-nav-bar [tabPanel]="navPanel" class="app-tab-nav">
-    @for (tab of navTabs; track tab.path) {
-    <a mat-tab-link [routerLink]="tab.path" [active]="isTabActive(tab)"> {{ tab.label }} </a>
-    }
-  </nav>
-  <mat-tab-nav-panel #navPanel class="app-tab-panel">
+  <div class="app-nav-shell">
+    <div class="app-nav-row">
+      <span class="app-brand">Attendance Tracker</span>
+      <nav class="app-nav-links" aria-label="Main">
+        @if (auth.loggedIn()) {
+          @for (tab of memberTabs; track tab.path) {
+            <a
+              [routerLink]="tab.path"
+              class="app-nav-link"
+              [class.app-nav-link-active]="isTabActive(tab)"
+            >
+              {{ tab.label }}
+            </a>
+          }
+        } @else {
+          @for (tab of guestTabs; track tab.path) {
+            <a
+              [routerLink]="tab.path"
+              class="app-nav-link"
+              [class.app-nav-link-active]="isTabActive(tab)"
+            >
+              {{ tab.label }}
+            </a>
+          }
+        }
+      </nav>
+      <div class="app-nav-trailing">
+        <app-live-clock />
+        @if (auth.loggedIn()) {
+          <button mat-button type="button" class="app-logout" (click)="logout()">Log out</button>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="app-main">
     <router-outlet />
-  </mat-tab-nav-panel>
+  </div>
 </header>

@@ -1,0 +1,162 @@
+<div class="attendance-page">
+  <header class="attendance-header">
+    <div class="attendance-header-main">
+      @if (classroom(); as c) {
+      <a routerLink="/home" class="classroom-detail-back" aria-label="Back to home">
+        <img
+          class="classroom-detail-back-icon"
+          src="/icons/left-arrow.svg"
+          alt=""
+          width="28"
+          height="28"
+        />
+      </a>
+      <h1 class="attendance-title">Take attendance</h1>
+      <p class="attendance-meta">
+        {{ c.subjectName }} · {{ c.course }} · Year {{ c.year }} · Room {{ c.room }}
+      </p>
+      } @else if (classroomId() !== null) {
+
+      <h1 class="attendance-title">Take attendance</h1>
+      }
+    </div>
+  </header>
+
+  @if (pageError()) {
+  <p class="attendance-error" role="alert">{{ pageError() }}</p>
+  } @if (classroom() && !pageError()) { @if (students().length === 0) {
+  <p class="attendance-hint">Add students to this classroom before you can take attendance.</p>
+  <a mat-flat-button color="primary" [routerLink]="['/classroom', classroom()!.id]"
+    >Go to classroom</a
+  >
+  } @else {
+  <section class="attendance-section" aria-labelledby="take-heading">
+    <h2 id="take-heading" class="attendance-section-title">Mark rolls</h2>
+    <p class="attendance-instructions">
+      Check <strong>Present</strong> for each student who attended. Everyone in the roster must be
+      included when you submit.
+    </p>
+
+    @if (submitError()) {
+    <p class="attendance-error" role="alert">{{ submitError() }}</p>
+    }
+
+    <mat-form-field appearance="outline" class="attendance-label-field" subscriptSizing="dynamic">
+      <mat-label>Session label (optional)</mat-label>
+      <input
+        matInput
+        type="text"
+        [value]="sessionLabel()"
+        (input)="onSessionLabelInput($event)"
+        placeholder="e.g. Week 5 — Lab"
+        autocomplete="off"
+      />
+      <mat-hint>If empty, uses subject, course, year, and today's date (MMDDYYYY).</mat-hint>
+    </mat-form-field>
+
+    <div class="attendance-actions">
+      <button mat-stroked-button type="button" (click)="selectAllPresent()">
+        Mark all present
+      </button>
+      <button mat-stroked-button type="button" (click)="clearAllPresent()">Clear all</button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="submitAttendance()"
+        [disabled]="submitting()"
+      >
+        {{ submitting() ? 'Saving…' : 'Submit attendance' }}
+      </button>
+    </div>
+
+    <div class="attendance-table-container">
+      <table mat-table [dataSource]="students()" class="attendance-table">
+        <ng-container matColumnDef="schoolStudentId">
+          <th mat-header-cell *matHeaderCellDef scope="col">Student ID</th>
+          <td mat-cell *matCellDef="let s">{{ s.studentId || '—' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="present">
+          <th mat-header-cell *matHeaderCellDef scope="col">Present</th>
+          <td mat-cell *matCellDef="let s">
+            <mat-checkbox
+              [checked]="isPresent(s.id)"
+              (change)="setPresent(s.id, $event.checked)"
+              [attr.aria-label]="'Present: ' + studentDisplayName(s)"
+            />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef scope="col">First name</th>
+          <td mat-cell *matCellDef="let s">{{ s.firstName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="middleName">
+          <th mat-header-cell *matHeaderCellDef scope="col">Middle name</th>
+          <td mat-cell *matCellDef="let s">{{ s.middleName?.trim() || '—' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef scope="col">Last name</th>
+          <td mat-cell *matCellDef="let s">{{ s.lastName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef scope="col">Gender</th>
+          <td mat-cell *matCellDef="let s">{{ genderLabel(s.gender) }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef scope="col">Email</th>
+          <td mat-cell *matCellDef="let s">{{ s.email || '—' }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="attendance-section" aria-labelledby="history-heading">
+    <h2 id="history-heading" class="attendance-section-title">Saved attendance</h2>
+    @if (sessionsError()) {
+    <p class="attendance-error" role="alert">{{ sessionsError() }}</p>
+    } @else if (sessions().length === 0) {
+    <p class="attendance-hint">No saved data attendance</p>
+    } @else {
+    <div class="attendance-table-container">
+      <table mat-table [dataSource]="sessions()" class="attendance-table">
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef scope="col">Date</th>
+          <td mat-cell *matCellDef="let row">{{ formatSessionDate(row.createdAt) }}</td>
+        </ng-container>
+        <ng-container matColumnDef="label">
+          <th mat-header-cell *matHeaderCellDef scope="col">Label</th>
+          <td mat-cell *matCellDef="let row">{{ row.label || '—' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef scope="col">Actions</th>
+          <td mat-cell *matCellDef="let row" class="attendance-history-actions">
+            <button
+              mat-icon-button
+              type="button"
+              color="primary"
+              aria-label="Download PDF"
+              (click)="downloadSessionPdf(row.id)"
+            >
+              <mat-icon>download</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              type="button"
+              color="warn"
+              aria-label="Delete attendance session"
+              (click)="deleteSession(row.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="historyColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: historyColumns"></tr>
+      </table>
+    </div>
+    }
+  </section>
+  } }
+</div>
