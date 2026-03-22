@@ -1,0 +1,101 @@
+@reference '../../../styles.css';
+
+.login-page {
+  @apply mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-8 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:py-20;
+}
+
+.login-heading-block {
+  @apply w-full;
+}
+
+.login-title {
+  @apply text-left text-4xl font-bold text-gray-500 sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl;
+}
+
+.login-rule {
+  @apply mt-6 w-full md:mt-8;
+}
+
+.login-body {
+  @apply w-full max-w-md pt-6 md:pt-8;
+}
+
+.login-success-alert {
+  @apply block w-full;
+}
+
+.login-card {
+  border-color: var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  @apply w-full rounded-lg border p-6 sm:p-8;
+}
+
+.login-api-error {
+  @apply mb-4 rounded-md px-3 py-2 text-sm sm:text-base;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.login-field {
+  @apply flex flex-col gap-2;
+}
+
+.login-field + .login-field {
+  @apply mt-5;
+}
+
+.login-label {
+  @apply text-sm font-semibold sm:text-base;
+  color: var(--mat-sys-on-surface);
+}
+
+.login-input {
+  @apply w-full rounded-md border px-4 py-3 text-base outline-none transition sm:min-h-12 sm:text-lg;
+  border-color: var(--mat-sys-outline);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+.login-input:focus {
+  border-color: var(--mat-sys-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--mat-sys-primary) 28%, transparent);
+}
+
+.login-input.ng-invalid.ng-touched {
+  border-color: var(--mat-sys-error);
+}
+
+.login-error {
+  @apply text-sm;
+  color: var(--mat-sys-error);
+}
+
+.login-actions {
+  @apply mt-8 flex flex-col gap-4;
+}
+
+.login-submit {
+  @apply w-full cursor-pointer rounded-md px-4 py-3 text-base font-semibold transition sm:min-h-12 sm:text-lg;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  border: none;
+}
+
+.login-submit:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.login-submit:disabled {
+  @apply cursor-not-allowed opacity-60;
+}
+
+.login-footer {
+  @apply text-center text-sm sm:text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.login-footer a {
+  color: var(--mat-sys-primary);
+  @apply font-semibold underline underline-offset-2;
+}

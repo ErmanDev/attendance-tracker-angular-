@@ -1,15 +1,63 @@
-<div class="m-12">
-  <form>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
-    </div>
-    <div>
-      <button type="submit">Login</button>
-    </div>
-  </form>
+<div class="login-page">
+  <div class="login-heading-block">
+    <p class="login-title">Login</p>
+    <hr class="login-rule" />
+  </div>
+  <div class="login-body">
+    @if (loginSuccess()) {
+      <app-alert
+        class="login-success-alert"
+        variant="success"
+        message="Signed in successfully. Taking you to the home page…"
+      />
+    } @else {
+      <form class="login-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+        @if (submitError()) {
+          <p class="login-api-error" role="alert">{{ submitError() }}</p>
+        }
+        <div class="login-field">
+          <label class="login-label" for="login-email">Email</label>
+          <input
+            class="login-input"
+            id="login-email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            inputmode="email"
+          />
+          @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+            <span class="login-error">Email is required.</span>
+          }
+          @if (form.controls.email.touched && form.controls.email.hasError('email')) {
+            <span class="login-error">Enter a valid email address.</span>
+          }
+        </div>
+        <div class="login-field">
+          <label class="login-label" for="login-password">Password</label>
+          <input
+            class="login-input"
+            id="login-password"
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          @if (form.controls.password.touched && form.controls.password.hasError('required')) {
+            <span class="login-error">Password is required.</span>
+          }
+          @if (form.controls.password.touched && form.controls.password.hasError('minlength')) {
+            <span class="login-error">Password must be at least 6 characters.</span>
+          }
+        </div>
+        <div class="login-actions">
+          <button class="login-submit" type="submit" [disabled]="submitting()">
+            {{ submitting() ? 'Signing in…' : 'Sign in' }}
+          </button>
+          <p class="login-footer">
+            No account yet?
+            <a routerLink="/register">Register</a>
+          </p>
+        </div>
+      </form>
+    }
+  </div>
 </div>

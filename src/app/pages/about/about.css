@@ -1,0 +1,66 @@
+@reference '../../../styles.css';
+
+.about-page {
+  @apply mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-8 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:py-20;
+}
+
+.about-heading-block {
+  @apply w-full;
+}
+
+.about-title {
+  @apply text-left text-4xl font-bold text-gray-500 sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl;
+}
+
+.about-rule {
+  @apply mt-6 w-full md:mt-8;
+}
+
+.about-columns {
+  @apply flex w-full flex-col gap-8 pt-6 md:flex-row md:items-start md:gap-10 md:pt-8;
+}
+
+.about-column {
+  @apply w-full min-w-0 p-2 sm:p-4 md:flex-1 md:max-w-none;
+}
+
+.about-lead-heading {
+  @apply text-2xl text-red-400 sm:text-3xl md:text-4xl;
+}
+
+.about-lead-body {
+  @apply mt-3 text-base font-light leading-relaxed sm:text-lg md:mt-4 md:text-xl lg:text-2xl xl:text-3xl;
+}
+
+.about-faq-heading {
+  @apply text-xl text-red-400 sm:text-2xl md:text-3xl;
+}
+
+/* DaisyUI base-* colors clash with Material light theme; use system tokens for contrast. */
+.about-accordion {
+  border-color: var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+}
+
+.about-accordion .collapse-title,
+.about-accordion .collapse-content {
+  color: var(--mat-sys-on-surface);
+}
+
+.about-faq-heading + .about-accordion-first {
+  @apply mt-5 sm:mt-6;
+}
+
+.about-accordion + .about-accordion {
+  @apply mt-3 sm:mt-4;
+}
+
+.about-accordion .collapse-title {
+  @apply min-h-14 px-5 py-4 text-base leading-snug sm:min-h-16 sm:px-6 sm:py-5 sm:text-lg md:text-xl;
+}
+
+.about-accordion .collapse-content {
+  background-color: var(--mat-sys-surface-container-low);
+  @apply px-5 pb-5 pt-0 text-base leading-relaxed sm:px-6 sm:pb-6 sm:text-lg md:text-xl;
+}

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.app-toolbar-title {
+  font: var(--mat-sys-title-large);
+}
+
+.app-tab-nav {
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.app-tab-panel {
+  flex: 1;
+  min-height: 0;
+}

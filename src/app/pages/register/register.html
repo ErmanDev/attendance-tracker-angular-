@@ -1,1 +1,95 @@
-<p>register works!</p>
+<div class="register-page">
+  <div class="register-heading-block">
+    <p class="register-title">Register</p>
+    <hr class="register-rule" />
+  </div>
+  <div class="register-body">
+    <form class="register-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+      @if (submitError()) {
+        <p class="register-api-error" role="alert">{{ submitError() }}</p>
+      }
+      <div class="register-fields">
+        <mat-form-field appearance="outline" class="register-mat-field">
+          <mat-label>Full name</mat-label>
+          <input matInput formControlName="name" id="register-name" autocomplete="name" />
+          @if (form.controls.name.hasError('required') && form.controls.name.touched) {
+            <mat-error>Name is required.</mat-error>
+          }
+          @if (form.controls.name.hasError('minlength') && form.controls.name.touched) {
+            <mat-error>Use at least 2 characters.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="register-mat-field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            id="register-email"
+            autocomplete="email"
+          />
+          @if (form.controls.email.hasError('required') && form.controls.email.touched) {
+            <mat-error>Email is required.</mat-error>
+          }
+          @if (form.controls.email.hasError('email') && form.controls.email.touched) {
+            <mat-error>Enter a valid email address.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="register-mat-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            id="register-password"
+            autocomplete="new-password"
+          />
+          @if (form.controls.password.hasError('required') && form.controls.password.touched) {
+            <mat-error>Password is required.</mat-error>
+          }
+          @if (form.controls.password.hasError('minlength') && form.controls.password.touched) {
+            <mat-error>At least 6 characters.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="register-mat-field">
+          <mat-label>Confirm password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            id="register-confirm-password"
+            autocomplete="new-password"
+          />
+          @if (form.controls.confirmPassword.hasError('required') && form.controls.confirmPassword.touched) {
+            <mat-error>Confirm your password.</mat-error>
+          }
+          @if (
+            form.hasError('passwordMismatch') &&
+            (form.controls.confirmPassword.touched || form.controls.password.touched)
+          ) {
+            <mat-error>Passwords do not match.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="register-actions">
+        <button
+          mat-flat-button
+          color="primary"
+          class="register-submit"
+          type="submit"
+          [disabled]="submitting()"
+        >
+          {{ submitting() ? 'Creating account…' : 'Create account' }}
+        </button>
+        <p class="register-footer">
+          Already have an account?
+          <a routerLink="/login">Sign in</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

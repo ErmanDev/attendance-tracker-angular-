@@ -1,4 +1,2 @@
-/* Global styles — Tailwind v4 via PostCSS (.postcssrc.json → @tailwindcss/postcss). */
-
 @import 'tailwindcss' source('.');
 @plugin "daisyui";

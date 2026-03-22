@@ -1,0 +1,28 @@
+@reference '../../../styles.css';
+
+.alert {
+  @apply w-full rounded-lg border px-4 py-3 text-sm sm:text-base;
+  border-width: 1px;
+}
+
+.alert__message {
+  @apply leading-snug;
+}
+
+.alert--success {
+  color: var(--mat-sys-on-tertiary-container);
+  background-color: var(--mat-sys-tertiary-container);
+  border-color: color-mix(in srgb, var(--mat-sys-tertiary) 35%, transparent);
+}
+
+.alert--error {
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+  border-color: color-mix(in srgb, var(--mat-sys-error) 35%, transparent);
+}
+
+.alert--info {
+  color: var(--mat-sys-on-secondary-container);
+  background-color: var(--mat-sys-secondary-container);
+  border-color: var(--mat-sys-outline-variant);
+}

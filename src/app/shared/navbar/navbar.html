@@ -1,0 +1,10 @@
+<header class="app-header">
+  <nav mat-tab-nav-bar [tabPanel]="navPanel" class="app-tab-nav">
+    @for (tab of navTabs; track tab.path) {
+    <a mat-tab-link [routerLink]="tab.path" [active]="isTabActive(tab)"> {{ tab.label }} </a>
+    }
+  </nav>
+  <mat-tab-nav-panel #navPanel class="app-tab-panel">
+    <router-outlet />
+  </mat-tab-nav-panel>
+</header>

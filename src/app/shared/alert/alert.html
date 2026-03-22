@@ -1,0 +1,10 @@
+<div
+  class="alert"
+  [class.alert--success]="variant() === 'success'"
+  [class.alert--error]="variant() === 'error'"
+  [class.alert--info]="variant() === 'info'"
+  [attr.role]="variant() === 'success' ? 'status' : 'alert'"
+  [attr.aria-live]="variant() === 'success' ? 'polite' : 'assertive'"
+>
+  <span class="alert__message">{{ message() }}</span>
+</div>

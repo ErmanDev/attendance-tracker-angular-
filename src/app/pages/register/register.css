@@ -1,0 +1,61 @@
+@reference '../../../styles.css';
+
+.register-page {
+  @apply mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-8 sm:px-6 sm:py-12 md:px-8 md:py-16 lg:py-20;
+}
+
+.register-heading-block {
+  @apply w-full;
+}
+
+.register-title {
+  @apply text-left text-4xl font-bold text-gray-500 sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl;
+}
+
+.register-rule {
+  @apply mt-6 w-full md:mt-8;
+}
+
+.register-body {
+  @apply w-full max-w-md pt-6 md:pt-8;
+}
+
+.register-card {
+  border-color: var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  @apply w-full rounded-lg border p-6 sm:p-8;
+}
+
+.register-api-error {
+  @apply mb-4 rounded-md px-3 py-2 text-sm sm:text-base;
+  color: var(--mat-sys-on-error-container);
+  background-color: var(--mat-sys-error-container);
+}
+
+.register-fields {
+  @apply flex flex-col gap-2;
+}
+
+.register-mat-field {
+  width: 100%;
+}
+
+.register-actions {
+  @apply mt-8 flex flex-col gap-4;
+}
+
+.register-submit {
+  width: 100%;
+  @apply py-2 text-base font-semibold sm:min-h-12 sm:text-lg;
+}
+
+.register-footer {
+  @apply text-center text-sm sm:text-base;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.register-footer a {
+  color: var(--mat-sys-primary);
+  @apply font-semibold underline underline-offset-2;
+}

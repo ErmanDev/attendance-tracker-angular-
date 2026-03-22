@@ -1,35 +1,51 @@
-<div class="flex-column items-centerm m-12">
-  <p class="text-6xl text-gray-500 font-bold text-left">About</p>
-  <div class="flex">
-    <div class="w-3/5 p-4">
-      <div class="text-3xl font-bold">
-        I am Erman Louie A. Faminiano, <br />
-        Created this website <br />
-        March 22, 2026
+<div class="about-page">
+  <div class="about-heading-block">
+    <p class="about-title">About</p>
+    <hr class="about-rule" />
+  </div>
+  <div class="about-columns">
+    <div class="about-column">
+      <div class="about-lead-heading">Attendance Tracker</div>
+      <div class="about-lead-body">
+        Attendance Tracker is a web application that helps you track your attendance. Wether you're
+        a teacher or a student, it provides a simple and efficient way to monitor attendance.
       </div>
     </div>
-    <div class="w-2/5 p-4">
-      <div class="text-3xl">Why I created this website?</div>
-      <div class="collapse collapse-plus bg-base-100 border border-base-300 mt-4">
-        <input type="radio" name="my-accordion-3" checked="checked" />
-        <div class="collapse-title font-semibold">How do I create an account?</div>
-        <div class="collapse-content text-sm">
-          Click the "Sign Up" button in the top right corner and follow the registration process.
+    <div class="about-column">
+      <div class="about-faq-heading">FAQ's</div>
+      <div class="about-accordion collapse collapse-plus about-accordion-first border">
+        <input type="radio" name="about-attendance-faq" checked="checked" />
+        <div class="collapse-title font-semibold">What does Attendance Tracker help me do?</div>
+        <div class="collapse-content">
+          Attendance Tracker is built to record who was present for a class or session, keep a clear
+          history over time, and give both instructors and students a straightforward place to
+          review attendance without juggling spreadsheets or paper rolls.
         </div>
       </div>
-      <div class="collapse collapse-plus bg-base-100 border border-base-300">
-        <input type="radio" name="my-accordion-3" />
-        <div class="collapse-title font-semibold">I forgot my password. What should I do?</div>
-        <div class="collapse-content text-sm">
-          Click on "Forgot Password" on the login page and follow the instructions sent to your
-          email.
+      <div class="about-accordion collapse collapse-plus border">
+        <input type="radio" name="about-attendance-faq" />
+        <div class="collapse-title font-semibold">How do teachers mark attendance?</div>
+        <div class="collapse-content">
+          Instructors open the session for the class they are teaching, see the roster for that
+          group, and mark each learner present, absent, or late. Changes save to that session so the
+          record stays tied to the correct date and subject.
         </div>
       </div>
-      <div class="collapse collapse-plus bg-base-100 border border-base-300">
-        <input type="radio" name="my-accordion-3" />
-        <div class="collapse-title font-semibold">How do I update my profile information?</div>
-        <div class="collapse-content text-sm">
-          Go to "My Account" settings and select "Edit Profile" to make changes.
+      <div class="about-accordion collapse collapse-plus border">
+        <input type="radio" name="about-attendance-faq" />
+        <div class="collapse-title font-semibold">Can students see their own attendance?</div>
+        <div class="collapse-content">
+          Yes. After signing in, students can view their attendance history for the courses they are
+          enrolled in, so they always know how their participation is recorded.
+        </div>
+      </div>
+      <div class="about-accordion collapse collapse-plus border">
+        <input type="radio" name="about-attendance-faq" />
+        <div class="collapse-title font-semibold">How are classes and rosters organized?</div>
+        <div class="collapse-content">
+          Each class has its own roster of students. When you take attendance, you are working
+          against that roster for a specific meeting time, which keeps reports accurate and easy to
+          filter by class or time period.
         </div>
       </div>
     </div>
